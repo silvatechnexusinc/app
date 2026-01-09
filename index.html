@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCI Projects Archive - School of Computing and Informatics</title>
+    <style>
+        /* ===== CSS RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary-color: #10b981;
+            --secondary-dark: #059669;
+            --accent-color: #f59e0b;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --background: #0f172a;
+            --background-light: #1e293b;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            --glow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* ===== GLOBAL STYLES ===== */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== ANIMATED BACKGROUND PARTICLES ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== ANIMATED GRADIENT BACKGROUND ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: var(--glow);
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(99, 102, 241, 0.8);
+            }
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            color: var(--text-secondary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeInRight 0.8s ease;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .user-badge {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.5);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== AUTHENTICATION FORMS ===== */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 100px);
+            padding: 2rem;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.2);
+            padding: 3rem;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .auth-tab.active {
+            color: var(--primary-light);
+            border-bottom-color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        }
+
+        .auth-tab:hover {
+            color: var(--primary-light);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: rgba(15, 23, 42, 0.5);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), 0 0 20px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .info-box strong {
+            color: var(--primary-light);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== ALERTS ===== */
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: slideDown 0.5s ease;
+            border-left: 4px solid;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border-left-color: var(--secondary-color);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border-left-color: var(--danger-color);
+        }
+
+        .alert-info {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            border-left-color: var(--primary-color);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border-left-color: var(--warning-color);
+        }
+
+        /* ===== DASHBOARD ===== */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .dashboard-header {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.2);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .dashboard-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        /* ===== PROJECTS LIST ===== */
+        .projects-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .btn-sm {
+            padding: 0.6rem 1.25rem;
+            font-size: 0.875rem;
+        }
+
+        /* ===== STATUS BADGES ===== */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-submitted {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .status-under_review {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .status-approved {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .status-rejected {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .status-needs_revision {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg), 0 0 60px rgba(99, 102, 241, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-close {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--danger-color);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--danger-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* ===== DOCUMENTS LIST ===== */
+        .documents-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .document-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .document-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .document-info {
+            flex: 1;
+        }
+
+        .document-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .document-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* ===== FILE UPLOAD ===== */
+        .file-upload {
+            border: 2px dashed rgba(99, 102, 241, 0.4);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+            transform: scale(1.02);
+        }
+
+        .file-upload.dragging {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .file-upload-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        /* ===== LOADING SPINNER ===== */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(99, 102, 241, 0.2);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== YEAR INDICATOR ===== */
+        .year-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        .year-3 {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .year-5 {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+
+        /* ===== HIDDEN ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .auth-card {
+                padding: 2rem;
+            }
+
+            .dashboard-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .project-header {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .text-center { text-align: center; }
+        .text-secondary { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <!-- ANIMATED PARTICLES CANVAS -->
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="content-wrapper">
+        <!-- HEADER -->
+        <header class="header hidden" id="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🎓</div>
+                    <div class="logo-text">
+                        <h1>SCI Projects Archive</h1>
+                        <p>School of Computing and Informatics</p>
+                    </div>
+                </div>
+                <div class="user-info hidden" id="userInfo">
+                    <div class="user-badge" id="userBadge"></div>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- AUTHENTICATION SECTION -->
+        <div id="authSection" class="auth-container">
+            <div class="auth-card">
+                <div class="text-center mb-3">
+                    <div class="logo-icon" style="width: 70px; height: 70px; margin: 0 auto 1rem; font-size: 2.5rem;">🎓</div>
+                    <h2>SCI Projects Archive</h2>
+                    <p class="text-secondary">School of Computing and Informatics</p>
+                </div>
+
+                <div class="alert alert-error" id="authAlert"></div>
+
+                <!-- AUTH TABS -->
+                <div class="auth-tabs">
+                    <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+                    <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="loginUsername" required placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><span>Login</span></button>
+                </form>
+
+                <!-- SIGNUP FORM -->
+                <form id="signupForm" class="hidden" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="signupFullName" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="signupUsername" required placeholder="Choose a username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="signupEmail" required placeholder="your.email@student.sci.edu">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="signupPassword" required minlength="6" placeholder="At least 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" id="signupRole" required onchange="handleRoleChange()">
+                            <option value="">Select Role</option>
+                            <option value="STUDENT">Student</option>
+                            <option value="LECTURER">Lecturer</option>
+                        </select>
+                    </div>
+                    
+                    <!-- STUDENT SPECIFIC FIELDS -->
+                    <div id="studentFields" class="hidden">
+                        <div class="info-box">
+                            <strong>📋 Registration Number Format:</strong>
+                            Format: SCI/XXX/YYYY<br>
+                            • XXX = Course code (e.g., 001=CS, 002=IT, 003=IS)<br>
+                            • YYYY = Year of admission<br>
+                            <br>
+                            <strong>⚠️ Important - Registration Rules:</strong><br>
+                            • Only 3rd year (2023 admission) and 5th year (2021 admission) can register<br>
+                            • First year students (2026 admission) are NOT allowed<br>
+                            • Current year is 2026
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Registration Number</label>
+                            <input type="text" class="form-input" id="signupRegNo" 
+                                   placeholder="e.g., SCI/001/2023" 
+                                   pattern="SCI/\d{3}/\d{4}" 
+                                   title="Format: SCI/XXX/YYYY"
+                                   oninput="validateAndDetectCourse()">
+                        </div>
+                        <div class="form-group" id="courseDisplay" style="display: none;">
+                            <label class="form-label">Detected Course & Year</label>
+                            <div class="info-box" id="detectedCourseInfo"></div>
+                        </div>
+                    </div>
+
+                    <!-- LECTURER SPECIFIC FIELDS -->
+                    <div class="form-group hidden" id="staffIdGroup">
+                        <label class="form-label">Staff ID</label>
+                        <input type="text" class="form-input" id="signupStaffId" placeholder="e.g., STAFF/001">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block"><span>Sign Up</span></button>
+                </form>
+            </div>
+        </div>
+
+        <!-- DASHBOARD SECTION -->
+        <div id="dashboardSection" class="container dashboard">
+            <div class="alert alert-success" id="dashboardAlert"></div>
+
+            <!-- STUDENT DASHBOARD -->
+            <div id="studentDashboard" class="hidden">
+                <div class="dashboard-header">
+                    <h2>My Projects Dashboard</h2>
+                    <p class="text-secondary">Create, manage, and track your project submissions</p>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-primary" onclick="openCreateProjectModal()">
+                            <span>➕ Create New Project</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="loading" id="studentLoading">
+                    <div class="spinner"></div>
+                    <p class="mt-2">Loading your projects...</p>
+                </div>
+
+                <div id="studentProjectsList" class="projects-list"></div>
+            </div>
+
+            <!-- LECTURER DASHBOARD -->
+            <div id="lecturerDashboard" class="hidden">
+                <div class="dashboard-header">
+                    <h2>Student Projects</h2>
+                    <p class="text-secondary">Review and evaluate student submissions</p>
+                </div>
+
+                <div class="loading" id="lecturerLoading">
+                    <div class="spinner"></div>
+                    <p class="mt-2">Loading projects...</p>
+                </div>
+
+                <div id="lecturerProjectsList" class="projects-list"></div>
+            </div>
+        </div>
+
+        <!-- CREATE PROJECT MODAL -->
+        <div id="createProjectModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Create New Project</h3>
+                    <button class="modal-close" onclick="closeModal('createProjectModal')">×</button>
+                </div>
+                <form onsubmit="handleCreateProject(event)">
+                    <div class="form-group">
+                        <label class="form-label">Project Title *</label>
+                        <input type="text" class="form-input" id="projectTitle" required placeholder="Enter project title">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-input" id="projectDescription" rows="4" placeholder="Brief description of your project"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Course</label>
+                        <input type="text" class="form-input" id="projectCourse" placeholder="e.g., Software Engineering">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Academic Year</label>
+                        <input type="text" class="form-input" id="projectYear" placeholder="e.g., 2025/2026">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Semester</label>
+                        <input type="text" class="form-input" id="projectSemester" placeholder="e.g., Semester 1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Supervisor (Optional)</label>
+                        <select class="form-select" id="projectSupervisor">
+                            <option value="">Select Supervisor</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('createProjectModal')"><span>Cancel</span></button>
+                        <button type="submit" class="btn btn-primary" style="flex: 1;"><span>Create Project</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- PROJECT DETAILS MODAL -->
+        <div id="projectDetailsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Project Details</h3>
+                    <button class="modal-close" onclick="closeModal('projectDetailsModal')">×</button>
+                </div>
+                <div id="projectDetailsContent"></div>
+            </div>
+        </div>
+
+        <!-- UPLOAD DOCUMENT MODAL -->
+        <div id="uploadDocumentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Upload Document</h3>
+                    <button class="modal-close" onclick="closeModal('uploadDocumentModal')">×</button>
+                </div>
+                <form onsubmit="handleUploadDocument(event)">
+                    <div class="form-group">
+                        <label class="form-label">Document Type *</label>
+                        <select class="form-select" id="documentType" required>
+                            <option value="">Select Type</option>
+                            <option value="PRODUCT_REQUIREMENTS_DOCUMENT">Product Requirements Document</option>
+                            <option value="SOFTWARE_DESIGN_DOCUMENT">Software Design Document</option>
+                            <option value="USER_MANUAL">User Manual</option>
+                            <option value="TECHNICAL_DOCUMENTATION">Technical Documentation</option>
+                            <option value="TEST_PLAN">Test Plan</option>
+                            <option value="SOURCE_CODE">Source Code</option>
+                            <option value="FINAL_REPORT">Final Report</option>
+                            <option value="PRESENTATION">Presentation</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-input" id="documentDescription" rows="3" placeholder="Brief description of the document"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Select File *</label>
+                        <div class="file-upload" onclick="document.getElementById('documentFile').click()">
+                            <div class="file-upload-icon">📁</div>
+                            <p><strong>Click to browse</strong> or drag and drop</p>
+                            <p class="text-secondary" style="font-size: 0.875rem;">Maximum file size: 50MB</p>
+                            <input type="file" id="documentFile" required>
+                        </div>
+                        <div id="selectedFileName" class="mt-2 text-secondary"></div>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('uploadDocumentModal')"><span>Cancel</span></button>
+                        <button type="submit" class="btn btn-primary" style="flex: 1;"><span>Upload Document</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- REVIEW PROJECT MODAL -->
+        <div id="reviewProjectModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Review Project</h3>
+                    <button class="modal-close" onclick="closeModal('reviewProjectModal')">×</button>
+                </div>
+                <form onsubmit="handleReviewProject(event)">
+                    <div class="form-group">
+                        <label class="form-label">Status *</label>
+                        <select class="form-select" id="reviewStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="UNDER_REVIEW">Under Review</option>
+                            <option value="APPROVED">Approved</option>
+                            <option value="REJECTED">Rejected</option>
+                            <option value="NEEDS_REVISION">Needs Revision</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Marks (0-100)</label>
+                        <input type="number" class="form-input" id="reviewMarks" min="0" max="100" placeholder="Enter marks">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Comments</label>
+                        <textarea class="form-input" id="reviewComments" rows="5" placeholder="Provide feedback to the student"></textarea>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('reviewProjectModal')"><span>Cancel</span></button>
+                        <button type="submit" class="btn btn-primary" style="flex: 1;"><span>Submit Review</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== FLOATING PARTICLES ANIMATION =====
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            
+            draw() {
+                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        const particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${0.2 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            requestAnimationFrame(animateParticles);
+        }
+        
+        animateParticles();
+
+        // ===== CONFIGURATION =====
+        const API_BASE_URL = 'http://localhost:8080/api';
+        const CURRENT_YEAR = 2026;
+        let currentUser = null;
+        let authToken = null;
+        let currentProjectId = null;
+
+        // ===== COURSE DETECTION =====
+        const COURSE_CODES = {
+            '001': 'Computer Science (CS)',
+            '002': 'Information Technology (IT)',
+            '003': 'Information Systems (IS)',
+            '004': 'Software Engineering (SE)',
+            '005': 'Cyber Security (CyS)',
+            '006': 'Data Science (DS)',
+            '007': 'Computer Engineering (CE)',
+            '008': 'Network Engineering (NE)'
+        };
+
+        function validateAndDetectCourse() {
+            const regNo = document.getElementById('signupRegNo').value.toUpperCase();
+            const courseDisplay = document.getElementById('courseDisplay');
+            const detectedCourseInfo = document.getElementById('detectedCourseInfo');
+            
+            // Format: SCI/XXX/YYYY
+            const pattern = /^SCI\/(\d{3})\/(\d{4})$/;
+            const match = regNo.match(pattern);
+            
+            if (match) {
+                const courseCode = match[1];
+                const yearAdmitted = parseInt(match[2]);
+                const yearsStudied = CURRENT_YEAR - yearAdmitted;
+                
+                // Check if first year (current year 2026 admission)
+                if (yearAdmitted === CURRENT_YEAR) {
+                    detectedCourseInfo.innerHTML = `
+                        <span style="color: #ef4444;">❌ First year students (${CURRENT_YEAR} admission) are NOT allowed to register!</span><br>
+                        <span style="color: #ef4444;">You must be in 3rd year or 5th year.</span>
+                    `;
+                    courseDisplay.style.display = 'block';
+                    document.getElementById('signupRegNo').setCustomValidity('First year students cannot register');
+                    return;
+                }
+                
+                // Calculate which year they should be in
+                // 3rd year = admitted 3 years ago = 2026 - 3 = 2023
+                // 5th year = admitted 5 years ago = 2026 - 5 = 2021
+                const thirdYearAdmission = CURRENT_YEAR - 3; // 2023
+                const fifthYearAdmission = CURRENT_YEAR - 5; // 2021
+                
+                // Check if 3rd year (2023) or 5th year (2021)
+                if (yearAdmitted !== thirdYearAdmission && yearAdmitted !== fifthYearAdmission) {
+                    const yearLevel = yearsStudied > 0 ? `Year ${yearsStudied}` : 'Invalid Year';
+                    detectedCourseInfo.innerHTML = `
+                        <span style="color: #f59e0b;">⚠️ Only 3rd year (${thirdYearAdmission} admission) and 5th year (${fifthYearAdmission} admission) students can register!</span><br>
+                        Your admission year: ${yearAdmitted} (${yearLevel})<br>
+                        <span style="color: #94a3b8;">Current year: ${CURRENT_YEAR}</span>
+                    `;
+                    courseDisplay.style.display = 'block';
+                    document.getElementById('signupRegNo').setCustomValidity('Only 3rd and 5th year students allowed');
+                    return;
+                }
+                
+                const courseName = COURSE_CODES[courseCode] || 'Unknown Course';
+                const academicYear = yearAdmitted === thirdYearAdmission ? '3rd Year' : '5th Year';
+                
+                detectedCourseInfo.innerHTML = `
+                    <span style="color: #10b981;">✓ ${courseName}</span><br>
+                    <span style="color: #10b981;">✓ ${academicYear} (Admitted ${yearAdmitted})</span><br>
+                    <span style="color: #94a3b8;">Current year: ${CURRENT_YEAR}</span>
+                `;
+                courseDisplay.style.display = 'block';
+                document.getElementById('signupRegNo').setCustomValidity('');
+            } else {
+                courseDisplay.style.display = 'none';
+                if (regNo.length > 0) {
+                    document.getElementById('signupRegNo').setCustomValidity('Format must be SCI/XXX/YYYY');
+                }
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function showAlert(elementId, message, type = 'error') {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        function showLoading(elementId) {
+            document.getElementById(elementId).classList.add('show');
+        }
+
+        function hideLoading(elementId) {
+            document.getElementById(elementId).classList.remove('show');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // ===== AUTHENTICATION =====
+        function switchAuthTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+            }
+        }
+
+        function handleRoleChange() {
+            const role = document.getElementById('signupRole').value;
+            const studentFields = document.getElementById('studentFields');
+            const staffIdGroup = document.getElementById('staffIdGroup');
+
+            if (role === 'STUDENT') {
+                studentFields.classList.remove('hidden');
+                staffIdGroup.classList.add('hidden');
+                document.getElementById('signupRegNo').required = true;
+                document.getElementById('signupStaffId').required = false;
+            } else if (role === 'LECTURER') {
+                studentFields.classList.add('hidden');
+                staffIdGroup.classList.remove('hidden');
+                document.getElementById('signupRegNo').required = false;
+                document.getElementById('signupStaffId').required = true;
+            } else {
+                studentFields.classList.add('hidden');
+                staffIdGroup.classList.add('hidden');
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/signin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Invalid credentials');
+                }
+
+                const data = await response.json();
+                authToken = data.token;
+                currentUser = data;
+
+                localStorage.setItem('authToken', authToken);
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                showDashboard();
+            } catch (error) {
+                showAlert('authAlert', error.message || 'Login failed. Please try again.');
+            }
+        }
+
+        async function handleSignup(event) {
+            event.preventDefault();
+
+            const formData = {
+                fullName: document.getElementById('signupFullName').value,
+                username: document.getElementById('signupUsername').value,
+                email: document.getElementById('signupEmail').value,
+                password: document.getElementById('signupPassword').value,
+                role: document.getElementById('signupRole').value
+            };
+
+            if (formData.role === 'STUDENT') {
+                const regNo = document.getElementById('signupRegNo').value.toUpperCase();
+                const pattern = /^SCI\/(\d{3})\/(\d{4})$/;
+                const match = regNo.match(pattern);
+                
+                if (!match) {
+                    showAlert('authAlert', 'Invalid registration number format!');
+                    return;
+                }
+                
+                const yearAdmitted = parseInt(match[2]);
+                const thirdYearAdmission = CURRENT_YEAR - 3; // 2023
+                const fifthYearAdmission = CURRENT_YEAR - 5; // 2021
+                
+                // Block first years (current year 2026)
+                if (yearAdmitted === CURRENT_YEAR) {
+                    showAlert('authAlert', `First year students (${CURRENT_YEAR} admission) are NOT allowed to register!`);
+                    return;
+                }
+                
+                // Only allow 3rd year (2023) and 5th year (2021)
+                if (yearAdmitted !== thirdYearAdmission && yearAdmitted !== fifthYearAdmission) {
+                    showAlert('authAlert', `Only 3rd year (${thirdYearAdmission}) and 5th year (${fifthYearAdmission}) students can register!`);
+                    return;
+                }
+                
+                formData.studentId = regNo;
+            } else if (formData.role === 'LECTURER') {
+                formData.staffId = document.getElementById('signupStaffId').value;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Signup failed');
+                }
+
+                showAlert('authAlert', 'Account created successfully! Please login.', 'success');
+                setTimeout(() => {
+                    switchAuthTab('login');
+                    document.getElementById('signupForm').reset();
+                    document.getElementById('courseDisplay').style.display = 'none';
+                }, 2000);
+            } catch (error) {
+                showAlert('authAlert', error.message || 'Signup failed. Please try again.');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('currentUser');
+            authToken = null;
+            currentUser = null;
+            location.reload();
+        }
+
+        // ===== DASHBOARD =====
+        function showDashboard() {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('header').classList.remove('hidden');
+            document.getElementById('userInfo').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.add('active');
+
+            const userBadge = document.getElementById('userBadge');
+            userBadge.textContent = `${currentUser.fullName} (${currentUser.role})`;
+
+            if (currentUser.role === 'STUDENT') {
+                document.getElementById('studentDashboard').classList.remove('hidden');
+                loadStudentProjects();
+                loadLecturers();
+            } else if (currentUser.role === 'LECTURER') {
+                document.getElementById('lecturerDashboard').classList.remove('hidden');
+                loadLecturerProjects();
+            }
+        }
+
+        // ===== PROJECTS =====
+        async function loadStudentProjects() {
+            showLoading('studentLoading');
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/my-projects`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load projects');
+
+                const projects = await response.json();
+                displayStudentProjects(projects);
+            } catch (error) {
+                showAlert('dashboardAlert', error.message);
+            } finally {
+                hideLoading('studentLoading');
+            }
+        }
+
+        function displayStudentProjects(projects) {
+            const container = document.getElementById('studentProjectsList');
+            
+            if (projects.length === 0) {
+                container.innerHTML = '<div class="card"><p class="text-center text-secondary">No projects yet. Create your first project!</p></div>';
+                return;
+            }
+
+            container.innerHTML = projects.map(project => `
+                <div class="project-card">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">${project.title}</h3>
+                            <div class="project-meta">
+                                <span class="project-meta-item">📚 ${project.course || 'N/A'}</span>
+                                <span class="project-meta-item">📅 ${project.academicYear || 'N/A'}</span>
+                                <span class="project-meta-item">📖 ${project.semester || 'N/A'}</span>
+                            </div>
+                        </div>
+                        <span class="status-badge status-${project.status.toLowerCase()}">${project.status.replace('_', ' ')}</span>
+                    </div>
+                    <p class="project-description">${project.description || 'No description provided'}</p>
+                    ${project.marks ? `<p><strong>Marks:</strong> ${project.marks}/100</p>` : ''}
+                    ${project.lecturerComments ? `<p><strong>Comments:</strong> ${project.lecturerComments}</p>` : ''}
+                    <div class="project-actions">
+                        <button class="btn btn-primary btn-sm" onclick="viewProjectDetails(${project.id})"><span>View Details</span></button>
+                        <button class="btn btn-secondary btn-sm" onclick="openUploadModal(${project.id})"><span>Upload Document</span></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadLecturerProjects() {
+            showLoading('lecturerLoading');
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load projects');
+
+                const projects = await response.json();
+                displayLecturerProjects(projects);
+            } catch (error) {
+                showAlert('dashboardAlert', error.message);
+            } finally {
+                hideLoading('lecturerLoading');
+            }
+        }
+
+        function displayLecturerProjects(projects) {
+            const container = document.getElementById('lecturerProjectsList');
+            
+            if (projects.length === 0) {
+                container.innerHTML = '<div class="card"><p class="text-center text-secondary">No projects submitted yet.</p></div>';
+                return;
+            }
+
+            container.innerHTML = projects.map(project => {
+                const studentRegNo = project.student?.studentId || '';
+                let yearBadge = '';
+                let courseInfo = '';
+                
+                if (studentRegNo) {
+                    const match = studentRegNo.match(/SCI\/(\d{3})\/(\d{4})$/);
+                    if (match) {
+                        const courseCode = match[1];
+                        const year = match[2];
+                        
+                        const thirdYearAdmission = CURRENT_YEAR - 3;
+                        const fifthYearAdmission = CURRENT_YEAR - 5;
+                        
+                        if (parseInt(year) === thirdYearAdmission) yearBadge = '<span class="year-indicator year-3">3rd Year</span>';
+                        else if (parseInt(year) === fifthYearAdmission) yearBadge = '<span class="year-indicator year-5">5th Year</span>';
+                        
+                        const courseName = COURSE_CODES[courseCode] || 'Unknown';
+                        courseInfo = `<span style="font-size: 0.875rem; color: var(--text-secondary);">${courseName}</span>`;
+                    }
+                }
+                
+                return `
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">${project.title}</h3>
+                                <p class="text-secondary">Student: ${project.student?.fullName || 'Unknown'}${yearBadge}</p>
+                                <p class="text-secondary" style="font-size: 0.875rem;">Reg No: ${studentRegNo || 'N/A'}</p>
+                                ${courseInfo ? `<p>${courseInfo}</p>` : ''}
+                                <div class="project-meta">
+                                    <span class="project-meta-item">📚 ${project.course || 'N/A'}</span>
+                                    <span class="project-meta-item">📅 ${project.academicYear || 'N/A'}</span>
+                                    <span class="project-meta-item">📖 ${project.semester || 'N/A'}</span>
+                                </div>
+                            </div>
+                            <span class="status-badge status-${project.status.toLowerCase()}">${project.status.replace('_', ' ')}</span>
+                        </div>
+                        <p class="project-description">${project.description || 'No description provided'}</p>
+                        ${project.marks ? `<p><strong>Marks:</strong> ${project.marks}/100</p>` : ''}
+                        <div class="project-actions">
+                            <button class="btn btn-primary btn-sm" onclick="viewProjectDetails(${project.id})"><span>View Details</span></button>
+                            <button class="btn btn-secondary btn-sm" onclick="openReviewModal(${project.id})"><span>Review Project</span></button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function loadLecturers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/users/lecturers`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load lecturers');
+
+                const lecturers = await response.json();
+                const select = document.getElementById('projectSupervisor');
+                select.innerHTML = '<option value="">Select Supervisor</option>' + 
+                    lecturers.map(l => `<option value="${l.id}">${l.fullName}</option>`).join('');
+            } catch (error) {
+                console.error('Failed to load lecturers:', error);
+            }
+        }
+
+        function openCreateProjectModal() {
+            openModal('createProjectModal');
+        }
+
+        async function handleCreateProject(event) {
+            event.preventDefault();
+
+            const formData = {
+                title: document.getElementById('projectTitle').value,
+                description: document.getElementById('projectDescription').value,
+                course: document.getElementById('projectCourse').value,
+                academicYear: document.getElementById('projectYear').value,
+                semester: document.getElementById('projectSemester').value
+            };
+
+            const supervisorId = document.getElementById('projectSupervisor').value;
+            if (supervisorId) {
+                formData.supervisorId = parseInt(supervisorId);
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) throw new Error('Failed to create project');
+
+                showAlert('dashboardAlert', 'Project created successfully!', 'success');
+                closeModal('createProjectModal');
+                document.getElementById('projectTitle').closest('form').reset();
+                loadStudentProjects();
+            } catch (error) {
+                showAlert('dashboardAlert', error.message);
+            }
+        }
+
+        async function viewProjectDetails(projectId) {
+            try {
+                const [projectRes, documentsRes] = await Promise.all([
+                    fetch(`${API_BASE_URL}/projects/${projectId}`, {
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    }),
+                    fetch(`${API_BASE_URL}/projects/${projectId}/documents`, {
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    })
+                ]);
+
+                const project = await projectRes.json();
+                const documents = await documentsRes.json();
+
+                displayProjectDetails(project, documents);
+                openModal('projectDetailsModal');
+            } catch (error) {
+                showAlert('dashboardAlert', 'Failed to load project details');
+            }
+        }
+
+        function displayProjectDetails(project, documents) {
+            const content = document.getElementById('projectDetailsContent');
+            content.innerHTML = `
+                <div class="card">
+                    <h3>${project.title}</h3>
+                    <p class="text-secondary mb-2">${project.description || 'No description'}</p>
+                    <div class="mb-2">
+                        <strong>Course:</strong> ${project.course || 'N/A'}<br>
+                        <strong>Academic Year:</strong> ${project.academicYear || 'N/A'}<br>
+                        <strong>Semester:</strong> ${project.semester || 'N/A'}<br>
+                        <strong>Status:</strong> <span class="status-badge status-${project.status.toLowerCase()}">${project.status.replace('_', ' ')}</span><br>
+                        ${project.marks ? `<strong>Marks:</strong> ${project.marks}/100<br>` : ''}
+                        ${project.lecturerComments ? `<strong>Comments:</strong> ${project.lecturerComments}` : ''}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Documents</h4>
+                    <div class="documents-list">
+                        ${documents.length > 0 ? documents.map(doc => `
+                            <div class="document-item">
+                                <div class="document-info">
+                                    <div class="document-name">📄 ${doc.fileName}</div>
+                                    <div class="document-meta">${doc.documentType.replace(/_/g, ' ')} • ${formatFileSize(doc.fileSize)}</div>
+                                </div>
+                                <button class="btn btn-sm btn-primary" onclick="downloadDocument(${doc.id})"><span>Download</span></button>
+                            </div>
+                        `).join('') : '<p class="text-secondary">No documents uploaded yet.</p>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function openUploadModal(projectId) {
+            currentProjectId = projectId;
+            openModal('uploadDocumentModal');
+        }
+
+        // File upload handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('documentFile');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const fileName = e.target.files[0]?.name;
+                    if (fileName) {
+                        document.getElementById('selectedFileName').textContent = `Selected: ${fileName}`;
+                    }
+                });
+            }
+        });
+
+        async function handleUploadDocument(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const file = document.getElementById('documentFile').files[0];
+            const documentType = document.getElementById('documentType').value;
+            const description = document.getElementById('documentDescription').value;
+
+            formData.append('file', file);
+            formData.append('documentType', documentType);
+            formData.append('description', description);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/${currentProjectId}/documents`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Failed to upload document');
+
+                showAlert('dashboardAlert', 'Document uploaded successfully!', 'success');
+                closeModal('uploadDocumentModal');
+                document.getElementById('documentFile').closest('form').reset();
+                document.getElementById('selectedFileName').textContent = '';
+                loadStudentProjects();
+            } catch (error) {
+                showAlert('dashboardAlert', error.message);
+            }
+        }
+
+        function openReviewModal(projectId) {
+            currentProjectId = projectId;
+            openModal('reviewProjectModal');
+        }
+
+        async function handleReviewProject(event) {
+            event.preventDefault();
+
+            const formData = {
+                status: document.getElementById('reviewStatus').value,
+                comments: document.getElementById('reviewComments').value
+            };
+
+            const marks = document.getElementById('reviewMarks').value;
+            if (marks) {
+                formData.marks = parseInt(marks);
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/${currentProjectId}/review`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) throw new Error('Failed to submit review');
+
+                showAlert('dashboardAlert', 'Review submitted successfully!', 'success');
+                closeModal('reviewProjectModal');
+                document.getElementById('reviewStatus').closest('form').reset();
+                loadLecturerProjects();
+            } catch (error) {
+                showAlert('dashboardAlert', error.message);
+            }
+        }
+
+        async function downloadDocument(documentId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/documents/${documentId}/download`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to download document');
+
+                const blob = await response.blob();
+                const contentDisposition = response.headers.get('Content-Disposition');
+                const fileName = contentDisposition 
+                    ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+                    : 'document';
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (error) {
+                showAlert('dashboardAlert', 'Failed to download document');
+            }
+        }
+
+        // ===== INITIALIZATION =====
+        window.onload = function() {
+            const savedToken = localStorage.getItem('authToken');
+            const savedUser = localStorage.getItem('currentUser');
+
+            if (savedToken && savedUser) {
+                authToken = savedToken;
+                currentUser = JSON.parse(savedUser);
+                showDashboard();
+            }
+        };
+    </script>
+</body>
+</html>
